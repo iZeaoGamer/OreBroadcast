@@ -6,6 +6,7 @@ use pocketmine\event\block\BlockBreakEvent;
 use pocketmine\event\Listener;
 use pocketmine\math\Vector3;
 use pocketmine\plugin\PluginBase;
+use pocketmine\utils\TextFormat;
 
 class OreBroadcast extends PluginBase implements Listener{
     public static $oreIds = [56, 14, 15, 16, 21, 73, 74, 129];
@@ -18,7 +19,7 @@ class OreBroadcast extends PluginBase implements Listener{
         if(OreBroadcast::isPrecious($event->getBlock()) && !in_array($event->getBlock(), $this->foundOres[$event->getPlayer()->getName()])){
             $vein = $this->getVein($event->getBlock());
             $this->foundOres[$event->getPlayer()->getName()] = array_merge($this->foundOres[$event->getPlayer()->getName()], $vein);
-            $this->getServer()->broadcastMessage($event->getPlayer()->getName() . " found " . count($vein) . " " . Block::get($event->getBlock()->getId())->getName());
+            $this->getServer()->broadcastMessage(TextFormat::colorize("&3" . $event->getPlayer()->getName() . " &bfound &3" . count($vein) . " &b" . Block::get($event->getBlock()->getId())->getName());
             unset($this->foundOres[$event->getPlayer()->getName()][array_search($event->getBlock(), $this->foundOres[$event->getPlayer()->getName()])]);
 
         }
